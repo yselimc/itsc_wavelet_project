@@ -1,7 +1,7 @@
 import numpy as np
 import matplotlib.pyplot as plt
 import matplotlib.image as mpimg
-import pywt#wavelet için
+import pywt #wavelet için
 
 path="sozen.png" #kullanılacak resim
 TRESHOLD=0.3    #sıkıştırma miktarı ve kaliteyi belirleyen eşik değeri
@@ -30,3 +30,11 @@ def prep_img(p):
 def perform_wavelet(gray,wavelet_name):
     c2=pywt.dwt2(gray,wavelet_name)
     return c2
+
+
+#resmi hazırla
+gray=prep_img(path)
+
+#wavelet uygula
+coeffs2=perform_wavelet(gray,WAVELET_NAME)
+coeff_A,(coeff_H,coeff_V,coeff_D)=coeffs2
