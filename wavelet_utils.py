@@ -50,6 +50,17 @@ def reconstruct(coeffs2_thr,gray,WAVELET_NAME):
     reconstructed_c  = rec[:min_h, :min_w]
     return gray_c,reconstructed_c
 
+#geri dönüştürülmüş resim ile ilk resim arasındaki farkı hesaplayan metod
+def calculate_mse_psnr(gray_c, reconstructed_c):
+    diff = gray_c - reconstructed_c
+    mse = np.mean(diff**2)
+    if mse == 0:
+        psnr = float('inf')
+    else:
+        max_val = 1.0
+        psnr = 10 * np.log10((max_val**2)/mse) #PSNR için genel formul bu
+    return mse,psnr
+
 #resmi hazırla
 gray=prep_img(path)
 
@@ -66,3 +77,8 @@ coeff_D_thr, num_of_zeroed_coeffD  = apply_threshold(coeff_D, TRESHOLD)
 #resmi geri oluştur
 coeffs2_thr = (coeff_A_thr, (coeff_H_thr, coeff_V_thr, coeff_D_thr))
 gray_c,reconstructed_c=reconstruct(coeffs2_thr,gray,WAVELET_NAME)
+
+#farkı ölçmek için
+mse, psnr= calculate_mse_psnr(gray_c, reconstructed_c)
+print("MSE: ", mse)
+print("PSNR (dB): ", psnr)
