@@ -3,9 +3,9 @@ import matplotlib.pyplot as plt
 import matplotlib.image as mpimg
 import pywt #wavelet için
 
-paths=["sozen.png", "checkered.jpg", "satellite.jpg"] #kullanılacak resim
+paths=["digital_checkered.png","satellite_image.jpg","normal.jpg","pattern.jpg"] #kullanılacak resim
 TRESHOLD=0.3    #sıkıştırma miktarı ve kaliteyi belirleyen eşik değeri
-WAVELET_NAME="haar" #kullanılacak WAVELET'in türü
+WAVELET_NAMES= ["haar","db2","sym4"] #kullanılacak WAVELET'in türü
 
 #resmi grayscale yapıp float matris haline getiren metot
 def prep_img(p):
@@ -61,12 +61,12 @@ def calculate_mse_psnr(gray_c, reconstructed_c):
         psnr = 10 * np.log10((max_val**2)/mse) #PSNR için genel formul bu
     return mse,psnr
 
-def compress_and_evaluate_images(path):
+def compress_and_evaluate_images(path,wavelet_name,TRESHOLD):
     #resmi hazırla
     gray=prep_img(path)
 
     #wavelet uygula
-    coeffs2=perform_wavelet(gray,WAVELET_NAME)
+    coeffs2=perform_wavelet(gray,wavelet_name)
     coeff_A,(coeff_H,coeff_V,coeff_D)=coeffs2
 
     #treshold uygula
@@ -77,7 +77,7 @@ def compress_and_evaluate_images(path):
 
     #resmi geri oluştur
     coeffs2_thr = (coeff_A_thr, (coeff_H_thr, coeff_V_thr, coeff_D_thr))
-    gray_c,reconstructed_c=reconstruct(coeffs2_thr,gray,WAVELET_NAME)
+    gray_c,reconstructed_c=reconstruct(coeffs2_thr,gray,wavelet_name)
 
     #farkı ölçmek için
     mse, psnr= calculate_mse_psnr(gray_c, reconstructed_c)
@@ -85,4 +85,5 @@ def compress_and_evaluate_images(path):
     print("PSNR (dB): ", psnr)
 
 for path in paths:
-        def compress_and_evaluate_images(path)
+        for wavelet_name in WAVELET_NAMES:
+            compress_and_evaluate_images(path,wavelet_name,TRESHOLD)
