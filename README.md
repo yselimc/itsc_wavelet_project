@@ -23,14 +23,18 @@ This project implements wavelet-based image compression and quality evaluation. 
 
 ```
 itsc_wavelet_project/
-├── wavelet_utils.py        # Main script with all functions and entry point
-├── Group_7_Report.pdf      # Academic project report
-├── digital_checkered.png   # Test image
-├── satellite_image.jpg     # Test image
-├── normal.jpg              # Test image
-├── pattern.jpg             # Test image
-├── forest.jpg              # Test image
-└── aybu.jpg                # Test image (used for subband visualization)
+├── src/
+│   └── wavelet_utils.py        # Main script with all functions and entry point
+├── images/
+│   ├── digital_checkered.png   # Test image
+│   ├── satellite_image.jpg     # Test image
+│   ├── normal.jpg              # Test image
+│   ├── pattern.jpg             # Test image
+│   ├── forest.jpg              # Test image
+│   └── aybu.jpg                # Test image (used for subband visualization)
+├── docs/
+│   └── Group_7_Report.pdf      # Academic project report
+└── README.md
 ```
 
 ## Requirements
@@ -48,9 +52,10 @@ pip install numpy matplotlib PyWavelets
 
 ## Usage
 
-Run the main script from the project directory:
+Run the main script from the `src/` directory:
 
 ```bash
+cd src
 python wavelet_utils.py
 ```
 
@@ -95,4 +100,4 @@ The yellow horizontal line in trade-off plots marks **30 dB PSNR**, a commonly a
 
 ## Academic Report
 
-See `Group_7_Report.pdf` for the full project report, including methodology, experimental results, and analysis.
+See `docs/Group_7_Report.pdf` for the full project report, including methodology, experimental results, and analysis.
