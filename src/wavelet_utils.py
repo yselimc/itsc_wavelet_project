@@ -1,9 +1,11 @@
+import os
 import numpy as np
 import matplotlib.pyplot as plt
 import matplotlib.image as mpimg
 import pywt #wavelet için
 
-paths=["digital_checkered.png","satellite_image.jpg","normal.jpg","pattern.jpg"] #kullanılacak resim
+_IMG_DIR = os.path.join(os.path.dirname(__file__), "..", "images")
+paths=[os.path.join(_IMG_DIR, name) for name in ["digital_checkered.png","satellite_image.jpg","normal.jpg","pattern.jpg"]] #kullanılacak resim
 TRESHOLDS=[0.05, 0.10, 0.15, 0.20, 0.25,0.30,0.35]    #sıkıştırma miktarı ve kaliteyi belirleyen eşik değeri
 WAVELET_NAMES= ["haar","db2","sym4"] #kullanılacak WAVELET'in türü
 
@@ -150,4 +152,4 @@ for path in paths:
     print_tradeoff_tables(path,WAVELET_NAMES,TRESHOLDS)
 
 #horizontal, vertical, diagonal subbandları görselleştirmek için.
-show_subbands_of_wavelet("aybu.jpg",WAVELET_NAMES[0])
+show_subbands_of_wavelet(os.path.join(_IMG_DIR, "aybu.jpg"),WAVELET_NAMES[0])
